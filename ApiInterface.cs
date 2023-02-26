@@ -14,14 +14,14 @@ namespace AcquireX
         private static readonly string ClientId = ConfigurationManager.AppSettings["client_id"].ToString();
         private static readonly string ClientSecret = ConfigurationManager.AppSettings["client_secret"].ToString();
         private static Token? Token;
-        private static ProductList RSHughesProduct;
-        private static ProductList BannerProduct;
+        private static ProductList? RSHughesProduct;
+        private static ProductList? BannerProduct;
         public static async Task GenerateExportCalculationReport() 
         {
             await GenerateTokenAsync();
             await GetRSHughesProducts();
             await GetBannerProducts();
-            GetExportCalculationReport();
+            DisplayExportCalculationReport();
         }
 
         public static async Task GenerateTokenAsync()
@@ -80,7 +80,7 @@ namespace AcquireX
             }
         }
 
-        public static void GetExportCalculationReport() 
+        public static void DisplayExportCalculationReport() 
         {
             var CombineProducts = RSHughesProduct.products.Join(BannerProduct.products,
                                r => r.Upc,
